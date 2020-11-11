@@ -99,7 +99,13 @@ public class GeneratePojoFromJson {
             jsonElementsType.add(type);
         }
         if (isSameType) {
-            final JsonElementType type = jsonElementsType.iterator().next();
+            final JsonElementType type;
+            final Iterator<JsonElementType> iterator = jsonElementsType.iterator();
+            if (iterator.hasNext()) {
+                type = iterator.next();
+            } else {
+                type = JsonElementType.OBJECT;
+            }
             switch (type) {
                 case PRIMITIVE:
                     final List<JsonPrimitive> jsonPrimitives = jsonElements.stream()
